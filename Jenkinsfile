@@ -1,8 +1,8 @@
 node {
     stage('Preparation') {
         catchError(buildResult: 'SUCCESS') {
-            sh 'docker stop beautiful_proskuriakova'
-            sh 'docker rm beautiful_proskuriakova'
+            sh 'docker stop gettingstartedapp'
+            sh 'docker rm gettingstartedapp'
         }
     }
     stage('Build') {
@@ -11,5 +11,5 @@ node {
     stage('Results') {
         build 'TestGettingStartedApp'
     }
-    
+
 }
