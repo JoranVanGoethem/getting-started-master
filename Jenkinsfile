@@ -1,3 +1,5 @@
+properties([pipelineTriggers([pollSCM('* * * * *')])])
+
 node {
     stage('Preparation') {
         catchError(buildResult: 'SUCCESS') {
