@@ -1,6 +1,8 @@
 properties([pipelineTriggers([pollSCM('* * * * *')])])
 
-node {
+pipeline {
+  agent any
+  stages {
     stage('Preparation') {
         catchError(buildResult: 'SUCCESS') {
             sh 'docker stop gettingstartedapp'
@@ -13,9 +15,7 @@ node {
     stage('Results') {
         build 'TestGettingStartedApp'
     }
-
+  }
 }
-
-
 
 // testttts
