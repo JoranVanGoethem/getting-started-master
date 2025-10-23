@@ -2,20 +2,30 @@ properties([pipelineTriggers([pollSCM('* * * * *')])])
 
 pipeline {
   agent any
-  stages {
+   stages {
     stage('Preparation') {
+      steps {
         catchError(buildResult: 'SUCCESS') {
             sh 'docker stop gettingstartedapp'
             sh 'docker rm gettingstartedapp'
         }
+      }
     }
+
     stage('Build') {
-        build 'BuildGettingStartedApp'
+      steps {
+        // Gebruik je bestaande Freestyle job
+        build job: 'BuildGettingStartedApp', wait: true, propagate: true
+      }
     }
+
     stage('Results') {
-        build 'TestGettingStartedApp'
+      steps {
+        // Gebruik je bestaande Test job
+        build job: 'TestGettingStartedApp', wait: true, propagate: true
+      }
     }
-  }
+  }   
 }
 
 // test
